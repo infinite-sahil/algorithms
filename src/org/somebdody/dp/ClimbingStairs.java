@@ -20,9 +20,9 @@ public class ClimbingStairs {
 
     public static long climbStairs(final int numberOfStairs) {
         long[] ways = new long[numberOfStairs + 1];
-        // to climb 1 stair, it gonna take 1 step
+        // to climb 1 stair: it gonna take 1 step
         ways[1] = 1;
-        // to 2 stair, it can be (1-climb ,1-climb or direct 2 climb), so 2 ways
+        // to climb 2 stair: it can be done (1-climb ,1-climb OR direct 2 climb), so 2 ways
         ways[2] = 2;
         for (int i = 3; i <= numberOfStairs; i++)
             // here we are getting values from the already derived values (i.e that are present in the ways array)
