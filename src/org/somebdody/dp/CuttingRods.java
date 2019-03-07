@@ -6,9 +6,9 @@ package org.somebdody.dp;
  * ****************************************************************
  * Problem Statement:
  * -------------------
- * Given a rod of length n and prices P[i] = 1, . . . . ., n
+ * Given a rod of length N and prices P[i] = 1, . . . . ., n
  * where p[i] is the price of a rod of length i.
- * Find the maximum total revenue you can make by   cutting
+ * Find the maximum total revenue you can make by cutting
  * and selling  the rod (assume no cost for cutting the rod)
  */
 public class CuttingRods {
@@ -25,15 +25,9 @@ public class CuttingRods {
     }
 
     /**
-     * Solution using dynamic programming
-     * O(n2) - complexity
-     *
-     * @param rodLength
-     *         length of the rod
-     * @param prices
-     *         price of the rod with count
-     *
-     * @return
+     * Solution using dynamic programming O(n2) - complexity
+     * @param rodLength length of the rod
+     * @param prices price of the rod with count
      */
     private static long findMaxRevenue(final int rodLength, final long[] prices) {
         final long[] revenues = new long[rodLength + 1];
@@ -42,33 +36,34 @@ public class CuttingRods {
             long maxRevenue = Long.MIN_VALUE;
 
             for (int j = 1; j <= i; ++j) {
-                long temp = prices[j - 1] + revenues[i - j];
-                if (temp > maxRevenue) {
-                    maxRevenue = temp;
-                }
+                long tempRevenue = prices[j - 1] + revenues[i - j];
+                if (tempRevenue > maxRevenue)
+                    maxRevenue = tempRevenue;
             }
             revenues[i] = maxRevenue;
         }
+
         return revenues[rodLength];
     }
 
     /**
-     * This is not the right way to do things - expensive one
-     * recursive solution: large length - exponential solution
+     * This is not the right way to do things - expensive one recursive solution: large length -
+     * exponential solution
      */
     private static long findMaxRevenueRecursive(final int rodLength, final long[] prices) {
-        long maxValue = -1;
-        // as rod of length will have no revenue
-        if (rodLength == 0) {
+        long maxRevenue = -1;
+        // as rod of length zero will have no revenue
+        if (rodLength == 0)
             return 0;
-        }
+
         for (int i = 0; i < rodLength; ++i) {
-            long temp = prices[rodLength - i - 1] + findMaxRevenueRecursive(i, prices);
-            if (temp > maxValue) {
-                maxValue = temp;
-            }
+            // revenue = price of rod cut uptil + max revenue can be gained out of the rest of the rod length
+            long tempRevenue = prices[rodLength - i - 1] + findMaxRevenueRecursive(i, prices);
+            if (tempRevenue > maxRevenue)
+                maxRevenue = tempRevenue;
         }
-        return maxValue;
+
+        return maxRevenue;
     }
 
 }
