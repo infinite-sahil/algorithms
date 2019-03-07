@@ -6,8 +6,7 @@ package org.somebdody.dp;
  * ****************************************************************
  * Problem Statement:
  * * -------------------
- * you can climb 1 or 2 stairs with one step.
- * how many different ways can you climb n stairs ?
+ * you can climb 1 or 2 stairs with one step or two step, how many different ways can you climb n stairs ?
  *
  */
 
