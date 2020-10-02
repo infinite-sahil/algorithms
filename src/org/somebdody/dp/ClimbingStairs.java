@@ -13,22 +13,22 @@ package org.somebdody.dp;
 public class ClimbingStairs {
 
     public static final String MESSAGE =
-            "*** Number of ways to climb %s stairs - (%s) ==> %s ways, Time taken: %s milliseconds";
+            "*** Number of ways to climb %s stairs - (%s) ==> %s ways, Time taken: %s nanoseconds";
 
     public static void main(String[] args) {
         int numberOfStairs = 45;
         // recursive solution : this takes a lot of time for larger input
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         long ways = recursiveClimbStairs(numberOfStairs);
-        long end = System.currentTimeMillis();
+        long end = System.nanoTime();
 
 
         System.out.printf((MESSAGE) + "%n", numberOfStairs, "recursive", ways, (end - start));
 
         // using dp
-        start = System.currentTimeMillis();
+        start = System.nanoTime();
         ways = climbStairs(numberOfStairs);
-        end = System.currentTimeMillis();
+        end = System.nanoTime();
         System.out.printf((MESSAGE) + "%n", numberOfStairs, "dynamic programming", ways, (end - start));
     }
 
