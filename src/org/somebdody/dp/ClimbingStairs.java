@@ -12,29 +12,29 @@ package org.somebdody.dp;
 
 public class ClimbingStairs {
 
+    public static final String MESSAGE =
+            "*** Number of ways to climb %s stairs - (%s) ==> %s ways, Time taken: %s milliseconds";
 
     public static void main(String[] args) {
-        int numberOfStairs = 30;
-        long start = System.nanoTime();
+        int numberOfStairs = 45;
         // recursive solution : this takes a lot of time for larger input
+        long start = System.currentTimeMillis();
         long ways = recursiveClimbStairs(numberOfStairs);
-        long end = System.nanoTime();
-        System.out
-                .println("*** Number of ways to climb " + numberOfStairs
-                        + " stairs - (recursive) ==> "
-                        + ways + ", Time taken: " + (end - start));
+        long end = System.currentTimeMillis();
+
+
+        System.out.printf((MESSAGE) + "%n", numberOfStairs, "recursive", ways, (end - start));
+
         // using dp
-        start = System.nanoTime();
+        start = System.currentTimeMillis();
         ways = climbStairs(numberOfStairs);
-        end = System.nanoTime();
-        System.out.println(
-                "*** Number of ways to climb " + numberOfStairs
-                        + " stairs - (dynamic programming) ==> " + ways + ", Time taken: " + (end
-                        - start));
+        end = System.currentTimeMillis();
+        System.out.printf((MESSAGE) + "%n", numberOfStairs, "dynamic programming", ways, (end - start));
     }
 
     /**
      * This solution uses existing array and work far far better than recursive one
+     *
      * @param numberOfStairs stairs to climb
      * @return number ot way to climb N stairs
      */
@@ -42,28 +42,34 @@ public class ClimbingStairs {
         final long[] ways = new long[numberOfStairs + 1];
         // to climb 1 stair: it gonna take 1 step
         ways[1] = 1;
-        // to climb 2 stair: it can be done (1-climb ,1-climb OR direct 2 climb), so 2 ways
+        /*
+            To climb 2 stairs, it can achieved by 2 ways:
+                1 way - 1 step climb then again 1 step climb
+                2 way - direct 2 step climb
+         */
         ways[2] = 2;
+
         for (int i = 3; i <= numberOfStairs; i++) {
             // here we are getting values from the already derived values (i.e that are present in the ways array)
             ways[i] = ways[i - 1] + ways[i - 2];
         }
-
         return ways[numberOfStairs];
     }
 
     /**
      * This solution takes exponential time
-     * @param numberOfStairs stairs to climb
-     * @return number ot way to climb N stairs
+     *
+     * @param stairsToClimb stairs to climb
+     * @return number of ways to climb N stairs
      */
-    private static long recursiveClimbStairs(final int numberOfStairs) {
-        if (numberOfStairs == 1)
+    private static long recursiveClimbStairs(final int stairsToClimb) {
+        if (stairsToClimb == 1) {
             return 1;
-        else if (numberOfStairs == 2)
+        } else if (stairsToClimb == 2) {
             return 2;
+        }
 
-        return recursiveClimbStairs(numberOfStairs - 1) + recursiveClimbStairs(numberOfStairs - 2);
+        return recursiveClimbStairs(stairsToClimb - 1) + recursiveClimbStairs(stairsToClimb - 2);
     }
 
 }
